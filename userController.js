@@ -6,7 +6,7 @@ const User = require("./userModel");
 
 // Generate JWT
 const generateToken = (id) => {
-    return jwt.sign({ id }, "my_Secret_key", { expiresIn: "30d" });
+    return jwt.sign({ id }, "a3b1c2d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4g5h6i7j8k9l0m1n2o3p4", { expiresIn: "30d" });
   };
 
 //register token döndürmesin ve giriş mail üzerinden olmayacaka sonra düzelt

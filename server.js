@@ -12,7 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
-// Yolu './todoRoutes' olarak güncelledik
 app.use('/api/todos', require('./todoRoutes'));
 app.use('/api/users', require('./userRoutes'));
 app.use(errorHandler);

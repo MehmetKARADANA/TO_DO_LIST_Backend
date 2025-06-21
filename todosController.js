@@ -20,6 +20,23 @@ const getTodos = asyncHanlder(async (req, res) => {
     res.status(200).json(todos)
 });
 
+// Yeni: ID'ye göre tek bir todo döner
+const getTodoById = asyncHanlder(async (req, res) => {
+    const todo = await Todo.findById(req.params.id);
+
+    if (!todo) {
+        res.status(404);
+        throw new Error('Todo not found');
+    }
+
+    // Kullanıcının sadece kendi todo'sunu görmesi için kontrol
+    if (todo.user.toString() !== req.user.id) {
+        res.status(403);
+        throw new Error('Not authorized to view this todo');
+    }
+
+    res.status(200).json(todo);
+});
 /*Asenkron İşlemler: Asenkron fonksiyonlar async anahtar kelimesi ile tanımlanır ve içinde await kullanılarak asenkron işlemler yapılabilir. Örneğin, bir veritabanı sorgusu ya da API isteği yapılabilir.
 
 Hata Yönetimi: Hatalar otomatik olarak express-async-handler modülü tarafından yakalanır. Eğer asenkron kod içinde bir hata oluşursa, bu hata otomatik olarak Express'in hata middleware'ine yönlendirilir.
@@ -94,6 +111,7 @@ const deleteTodo = asyncHanlder(async (req, res, next) => {
 module.exports = {
     getTodos,
     setTodo,
+    getTodoById,
     updateTodo,
     deleteTodo
 }
